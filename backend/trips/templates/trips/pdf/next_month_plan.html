@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Next month plan</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+        }
+        th, td {
+          padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ user }}</h1>
+    <h2>Travel plan for {{ month_name }}, {{ year }}</h2>
+    <hr />
+    {% if total_trips == 0 %}
+        <h2>No trips planned for next month!</h2>
+    {% else %}
+        <h2>{{ total_trips }} trips planned</h2>
+        <table>
+            <thead>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Destination</th>
+                <th>Comment</th>
+            </thead>
+            <tbody>
+                {% for trip in trips %}
+                    <tr>
+                        <td>{{ trip.start_date }}</td>
+                        <td>{{ trip.end_date }}</td>
+                        <td>{{ trip.destination }}</td>
+                        <td>{{ trip.comment }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

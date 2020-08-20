@@ -1,0 +1,1181 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /api/users/:
+    get:
+      operationId: listUsers
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: role
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        username:
+                          type: string
+                          description: Required. 150 characters or fewer. Letters,
+                            digits and @/./+/-/_ only.
+                          maxLength: 150
+                        first_name:
+                          type: string
+                          maxLength: 30
+                        last_name:
+                          type: string
+                          maxLength: 150
+                        email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        role:
+                          enum:
+                          - 1
+                          - 2
+                          - 3
+                          minimum: -2147483648
+                          maximum: 2147483647
+                      required:
+                      - username
+          description: ''
+    post:
+      operationId: createUser
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  maxLength: 150
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                role:
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  minimum: -2147483648
+                  maximum: 2147483647
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+  /api/users/plan/:
+    get:
+      operationId: next_month_travel_planUser
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+  /api/users/profile/:
+    get:
+      operationId: profileUser
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+  /api/users/{id}/:
+    get:
+      operationId: retrieveUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: role
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+    put:
+      operationId: updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: role
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  maxLength: 150
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                role:
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  minimum: -2147483648
+                  maximum: 2147483647
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+    patch:
+      operationId: partial_updateUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: role
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  maxLength: 150
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                role:
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  minimum: -2147483648
+                  maximum: 2147483647
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
+    delete:
+      operationId: destroyUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      - name: first_name
+        required: false
+        in: query
+        description: first_name
+        schema:
+          type: string
+      - name: last_name
+        required: false
+        in: query
+        description: last_name
+        schema:
+          type: string
+      - name: email
+        required: false
+        in: query
+        description: email
+        schema:
+          type: string
+      - name: role
+        required: false
+        in: query
+        description: role
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/trips/:
+    get:
+      operationId: listTrips
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      - name: destination
+        required: false
+        in: query
+        description: destination
+        schema:
+          type: string
+      - name: comment
+        required: false
+        in: query
+        description: comment
+        schema:
+          type: string
+      - name: start_date_gte
+        required: false
+        in: query
+        description: start_date_gte
+        schema:
+          type: string
+      - name: start_date_lt
+        required: false
+        in: query
+        description: start_date_lt
+        schema:
+          type: string
+      - name: end_date_gte
+        required: false
+        in: query
+        description: end_date_gte
+        schema:
+          type: string
+      - name: end_date_lt
+        required: false
+        in: query
+        description: end_date_lt
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                  previous:
+                    type: string
+                    nullable: true
+                  results:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          readOnly: true
+                        destination:
+                          type: string
+                        start_date:
+                          type: string
+                          format: date
+                        end_date:
+                          type: string
+                          format: date
+                        comment:
+                          type: string
+                          nullable: true
+                        count_to_trip_start:
+                          type: string
+                          readOnly: true
+                        user:
+                          type: string
+                          readOnly: true
+                      required:
+                      - destination
+                      - start_date
+                      - end_date
+          description: ''
+    post:
+      operationId: createTrip
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                destination:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                comment:
+                  type: string
+                  nullable: true
+              required:
+              - destination
+              - start_date
+              - end_date
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  destination:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  comment:
+                    type: string
+                    nullable: true
+                  count_to_trip_start:
+                    type: string
+                    readOnly: true
+                  user:
+                    type: string
+                    readOnly: true
+                required:
+                - destination
+                - start_date
+                - end_date
+          description: ''
+  /api/trips/{id}/:
+    get:
+      operationId: retrieveTrip
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this trip.
+        schema:
+          type: string
+      - name: destination
+        required: false
+        in: query
+        description: destination
+        schema:
+          type: string
+      - name: comment
+        required: false
+        in: query
+        description: comment
+        schema:
+          type: string
+      - name: start_date_gte
+        required: false
+        in: query
+        description: start_date_gte
+        schema:
+          type: string
+      - name: start_date_lt
+        required: false
+        in: query
+        description: start_date_lt
+        schema:
+          type: string
+      - name: end_date_gte
+        required: false
+        in: query
+        description: end_date_gte
+        schema:
+          type: string
+      - name: end_date_lt
+        required: false
+        in: query
+        description: end_date_lt
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  destination:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  comment:
+                    type: string
+                    nullable: true
+                  count_to_trip_start:
+                    type: string
+                    readOnly: true
+                  user:
+                    type: string
+                    readOnly: true
+                required:
+                - destination
+                - start_date
+                - end_date
+          description: ''
+    put:
+      operationId: updateTrip
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this trip.
+        schema:
+          type: string
+      - name: destination
+        required: false
+        in: query
+        description: destination
+        schema:
+          type: string
+      - name: comment
+        required: false
+        in: query
+        description: comment
+        schema:
+          type: string
+      - name: start_date_gte
+        required: false
+        in: query
+        description: start_date_gte
+        schema:
+          type: string
+      - name: start_date_lt
+        required: false
+        in: query
+        description: start_date_lt
+        schema:
+          type: string
+      - name: end_date_gte
+        required: false
+        in: query
+        description: end_date_gte
+        schema:
+          type: string
+      - name: end_date_lt
+        required: false
+        in: query
+        description: end_date_lt
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                destination:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                comment:
+                  type: string
+                  nullable: true
+              required:
+              - destination
+              - start_date
+              - end_date
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  destination:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  comment:
+                    type: string
+                    nullable: true
+                  count_to_trip_start:
+                    type: string
+                    readOnly: true
+                  user:
+                    type: string
+                    readOnly: true
+                required:
+                - destination
+                - start_date
+                - end_date
+          description: ''
+    patch:
+      operationId: partial_updateTrip
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this trip.
+        schema:
+          type: string
+      - name: destination
+        required: false
+        in: query
+        description: destination
+        schema:
+          type: string
+      - name: comment
+        required: false
+        in: query
+        description: comment
+        schema:
+          type: string
+      - name: start_date_gte
+        required: false
+        in: query
+        description: start_date_gte
+        schema:
+          type: string
+      - name: start_date_lt
+        required: false
+        in: query
+        description: start_date_lt
+        schema:
+          type: string
+      - name: end_date_gte
+        required: false
+        in: query
+        description: end_date_gte
+        schema:
+          type: string
+      - name: end_date_lt
+        required: false
+        in: query
+        description: end_date_lt
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                destination:
+                  type: string
+                start_date:
+                  type: string
+                  format: date
+                end_date:
+                  type: string
+                  format: date
+                comment:
+                  type: string
+                  nullable: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  destination:
+                    type: string
+                  start_date:
+                    type: string
+                    format: date
+                  end_date:
+                    type: string
+                    format: date
+                  comment:
+                    type: string
+                    nullable: true
+                  count_to_trip_start:
+                    type: string
+                    readOnly: true
+                  user:
+                    type: string
+                    readOnly: true
+                required:
+                - destination
+                - start_date
+                - end_date
+          description: ''
+    delete:
+      operationId: destroyTrip
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this trip.
+        schema:
+          type: string
+      - name: destination
+        required: false
+        in: query
+        description: destination
+        schema:
+          type: string
+      - name: comment
+        required: false
+        in: query
+        description: comment
+        schema:
+          type: string
+      - name: start_date_gte
+        required: false
+        in: query
+        description: start_date_gte
+        schema:
+          type: string
+      - name: start_date_lt
+        required: false
+        in: query
+        description: start_date_lt
+        schema:
+          type: string
+      - name: end_date_gte
+        required: false
+        in: query
+        description: end_date_gte
+        schema:
+          type: string
+      - name: end_date_lt
+        required: false
+        in: query
+        description: end_date_lt
+        schema:
+          type: string
+      - name: user
+        required: false
+        in: query
+        description: user
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /api/token/:
+    post:
+      operationId: CreateTokenObtainPair
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  writeOnly: true
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  username:
+                    type: string
+                required:
+                - username
+          description: ''
+  /api/token/refresh/:
+    post:
+      operationId: CreateTokenRefresh
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                refresh:
+                  type: string
+              required:
+              - refresh
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  refresh:
+                    type: string
+                required:
+                - refresh
+          description: ''
+  /api/token/verify/:
+    post:
+      operationId: CreateTokenVerify
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                token:
+                  type: string
+              required:
+              - token
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  token:
+                    type: string
+                required:
+                - token
+          description: ''
+  /api/users/profile/update/:
+    put:
+      operationId: update_profileUser
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  maxLength: 150
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                password:
+                  type: string
+                  writeOnly: true
+                role:
+                  enum:
+                  - 1
+                  - 2
+                  - 3
+                  minimum: -2147483648
+                  maximum: 2147483647
+              required:
+              - username
+              - password
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  role:
+                    enum:
+                    - 1
+                    - 2
+                    - 3
+                    minimum: -2147483648
+                    maximum: 2147483647
+                required:
+                - username
+          description: ''
